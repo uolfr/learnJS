@@ -1,1 +1,40 @@
+var calc = new Calculator();
 
+console.log(calc.calculate('5 + 105'));
+
+calc.addMethod('/', function(a,b){
+	return a / b;
+});
+
+console.log(calc.calculate('15 / 3'));
+
+
+// конструктор
+function Calculator(){
+	this.calculate = privateCalc;
+	this.addMethod = privateAdd;
+	this.operations = {
+		'+': function(a,b){return a+b},
+		'-': function(a,b){return a-b}
+	}
+
+	function privateCalc(arg){
+
+		var arg = arg.split(' ');
+
+	  if (arg.length > 3) return 'error...';
+
+		var operator = arg[1];
+		var left = +arg[0]
+		var right = +arg[2]
+
+	  var result = this.operations[operator](left,right);
+
+	  return result;
+
+	};
+
+	function privateAdd(arg, func){
+		this.operations[arg] = func;
+	};
+};
